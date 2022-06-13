@@ -1,6 +1,11 @@
+import { FC, ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
+interface IPropType {
+  children: ReactNode
+  to: string
+}
 
-const Link = ({ children, to }: any) => {
+const Link: FC<IPropType> = ({ children, to }) => {
   return (
     <NavLink
       to={to}

@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 import { Container, Typography } from '@mui/material'
-import { ICoinsState } from 'store/reducers/CoinsReducer'
+
 import TableCoins from 'components/TableCoins/TableCoins'
 import FilterBar from 'components/FilterBar/FilterBar'
+import { ICoinsState } from 'types/ICoin'
 
 const Home = () => {
   const { isLoading, error } = useSelector((state: ICoinsState) => state)
-
   return (
     <Container maxWidth="lg">
       <Typography component="div" sx={{ flexGrow: 1 }}>

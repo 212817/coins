@@ -1,33 +1,28 @@
-import { ICoins } from '../../types/ICoin'
-import { IActions } from '../actions'
-
-export interface ICoinsState {
-  coins: ICoins[];
-  isLoading: boolean;
-  error: string;
-}
+import { AnyAction } from 'redux'
+import { actionTypesCoins } from 'store/actions/actionTypes.actions'
+import { ICoins, ICoinsState } from '../../types/ICoin'
 
 const initialState: ICoinsState = {
-  coins: [],
+  coins: [] as ICoins[],
   isLoading: false,
   error: '',
 }
 
-const coinsReducer = (state = initialState, action: IActions | any) => {
+const coinsReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case 'COINS_REQUEST':
+    case actionTypesCoins.COINS_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: '',
       }
-    case 'COINS_SUCCESS':
+    case actionTypesCoins.COINS_SUCCESS:
       return {
         ...state,
         coins: action.payload,
         isLoading: false,
       }
-    case 'COINS_ERROR':
+    case actionTypesCoins.COINS_ERROR:
       return {
         ...state,
         error: action.payload,

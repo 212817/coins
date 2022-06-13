@@ -1,0 +1,12 @@
+export enum actionTypesCoins {
+  COINS_REQUEST = 'COINS_REQUEST',
+  COINS_SUCCESS = 'COINS_SUCCESS',
+  COINS_ERROR = 'COINS_ERROR',
+}
+
+export enum actionTypesUsers {
+  USER_REQUEST = 'USER_REQUEST',
+  USER_LOGIN = 'USER_LOGIN',
+  USER_LOGOUT = 'USER_LOGOUT',
+  USER_ERROR = 'USER_ERROR',
+}

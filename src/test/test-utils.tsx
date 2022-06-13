@@ -1,23 +1,28 @@
 import { FC, ReactElement } from 'react'
-import { render } from '@testing-library/react'
-import { HashRouter } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import * as redux from 'react-redux';
+import { render as rtlRender } from '@testing-library/react'
 import { ICoins } from '../types/ICoin'
 
-const AllTheProviders: FC = ({ children }: any) => {
-  return <HashRouter>{children}</HashRouter>
+
+interface IPropType {
+  children: ReactElement
 }
 
-const customRender = (
+const AllTheProviders: FC<IPropType> = ({ children }) => {
+  return <BrowserRouter>{children}</BrowserRouter>
+}
+
+const render = (
   ui: ReactElement,
   data: { coins: ICoins[] } | [] = []
 ) => {
-  const select = (useSelector as jest.Mock).mockImplementation((selectorFn: any) =>
-    selectorFn(data)
-  )
-  const dispatch = (useDispatch as jest.Mock).mockReturnValue(jest.fn())
-  return { ...render(ui, { wrapper: AllTheProviders }), select, dispatch }
+  const spyOnUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue(data);
+  const spyOnUseDispatch = jest.spyOn(redux, 'useDispatch').mockReturnValue(jest.fn())
+  return {
+    ...rtlRender(ui, { wrapper: AllTheProviders }), spyOnUseSelector, spyOnUseDispatch
+  }
 }
 
 export * from '@testing-library/react'
-export { customRender as render }
+export { render }

@@ -1,12 +1,7 @@
 import TableCoins from './TableCoins'
 import { render, screen } from '../../test/test-utils'
 
-jest.mock('react-redux', () => ({
-  useDispatch: jest.fn(() => {}),
-  useSelector: jest.fn(),
-}))
-
-const Data = {
+const mockState = {
   coins: [
     {
       id: 'BTC',
@@ -31,17 +26,22 @@ const Data = {
   ],
 }
 
-const emptyData = { coins: [] }
+const emptyState = { coins: [] }
 
 describe('Table Coins', () => {
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('render table with {coins: []}', () => {
-    render(<TableCoins />, emptyData)
+    render(<TableCoins />, emptyState)
     expect(screen.getByRole('grid')).toBeInTheDocument()
     expect(screen.getByText('No rows')).toBeInTheDocument()
     expect(screen.getByText('Opening price')).toBeInTheDocument()
   })
   it('render table with data', () => {
-    render(<TableCoins />, Data)
+    render(<TableCoins />, mockState)
     expect(screen.getByRole('grid')).toBeInTheDocument()
     expect(screen.getByText('BTC')).toBeInTheDocument()
     expect(screen.getByText('€ 37,359.0')).toBeInTheDocument()

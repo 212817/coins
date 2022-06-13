@@ -1,23 +1,64 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import { Button, Container, Paper } from '@mui/material'
 import { Box } from '@mui/system'
+
 import TextField from 'components/TextField/TextField'
 import Link from '../components/Link/Link'
+import { login } from 'store/actions/userActions'
 
 interface IFormInput {
-  password: string
   email: string
+  password: string
+}
+
+const defaultValues = { email: '', password: '' }
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email('Entered value does not match email format')
+      .required('Please enter email'),
+    password: yup
+      .string()
+      .required('Please enter password')
+      .min(3, 'Length must be greater than 3 characters')
+      .max(32, 'Length must be less than 32 characters'),
+  })
+  .required()
+
+type ILocationState = {
+  from: {
+    pathname: string
+  }
 }
 
 const Login = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const dispatch = useDispatch()
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>()
+  } = useForm<IFormInput>({ defaultValues, resolver: yupResolver(schema) })
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data)
+  const fromPage = (location.state as ILocationState)?.from?.pathname || '/'
+
+  const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
+    dispatch(login(email, password, () => navigate(fromPage)))
+  }
+
+  if (localStorage.getItem('token')) {
+    return (
+      <Container maxWidth="sm">
+        <div> ... loading </div>
+      </Container>
+    )
   }
 
   return (
@@ -28,15 +69,7 @@ const Login = () => {
           <Controller
             name="email"
             control={control}
-            defaultValue=""
-            rules={{
-              required: 'Please enter email',
-              pattern: {
-                value: /[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/,
-                message: 'Wrong email',
-              },
-            }}
-            render={({ field }: any) => (
+            render={({ field }) => (
               <TextField
                 {...field}
                 ref={null}
@@ -44,7 +77,6 @@ const Login = () => {
                 helperText={errors?.email?.message}
                 fullWidth
                 label="Enter your email"
-                type="email"
                 sx={{ mt: 2 }}
               />
             )}
@@ -53,18 +85,6 @@ const Login = () => {
           <Controller
             name="password"
             control={control}
-            defaultValue=""
-            rules={{
-              required: 'Please enter password',
-              minLength: {
-                value: 3,
-                message: 'Length must be greater than 3 characters',
-              },
-              maxLength: {
-                value: 32,
-                message: 'Length must be less than 3 characters',
-              },
-            }}
             render={({ field }) => (
               <TextField
                 {...field}

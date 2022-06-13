@@ -1,10 +1,24 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { DataGrid, GridColDef, GridSortModel } from '@mui/x-data-grid'
-import type {} from '@mui/x-data-grid/themeAugmentation'
+import {
+  DataGrid,
+  GridCellValue,
+  GridColDef,
+  GridSortModel,
+} from '@mui/x-data-grid'
+import type { } from '@mui/x-data-grid/themeAugmentation'
 import { Box } from '@mui/material'
+
 import { ICoins } from '../../types/ICoin'
-import { ICoinsState } from '../../store/reducers/CoinsReducer'
+import { RootState } from 'store/store'
+
+const sortComparators = () => {
+  return (a: GridCellValue, b: GridCellValue) => {
+    let aa = parseFloat((a as string).replace(/[^.\d]/g, ''))
+    let bb = parseFloat((b as string).replace(/[^.\d]/g, ''))
+    return aa - bb
+  }
+}
 
 let columns: GridColDef[] = [
   {
@@ -20,11 +34,8 @@ let columns: GridColDef[] = [
     flex: 70,
     align: 'center',
     headerAlign: 'center',
-    sortComparator: (a: any, b: any): number => {
-      let aa = parseFloat(a.replace(/[^.\d]/g, ''))
-      let bb = parseFloat(b.replace(/[^.\d]/g, ''))
-      return aa - bb
-    },
+    sortComparator: sortComparators(),
+    type: 'string',
   },
   {
     field: 'openPrice',
@@ -32,11 +43,7 @@ let columns: GridColDef[] = [
     flex: 70,
     align: 'center',
     headerAlign: 'center',
-    sortComparator: (a: any, b: any): number => {
-      let aa = parseFloat(a.replace(/[^.\d]/g, ''))
-      let bb = parseFloat(b.replace(/[^.\d]/g, ''))
-      return aa - bb
-    },
+    sortComparator: sortComparators(),
   },
   {
     field: 'priceIncrease',
@@ -55,8 +62,16 @@ const TableCoins = () => {
     },
   ])
 
-  const { coins } = useSelector((state: ICoinsState) => state)
+  const { coins } = useSelector((state: RootState) => state.coins)
 
+  /**
+   * It takes a current price, an open price, and a currency symbol, and returns a string that says how
+   * much the current price has increased or decreased from the open price
+   * @param {number} current - number - current price
+   * @param {number} open - the price of the coin at the time of the last update
+   * @param {string} tosymbol - string - the currency symbol to which the price is converted
+   * @returns A string with the following format: `% ( )`
+   */
   const increase = (current: number, open: number, tosymbol: string) => {
     let reducedСur = current * 1e8
     let reducedOpen = open * 1e8

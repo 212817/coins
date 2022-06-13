@@ -1,8 +1,12 @@
-import React, { FC } from 'react'
-import { TextField as MUITextField } from '@mui/material'
+import React, { FC, RefObject } from 'react'
+import {
+  TextField as MUITextField,
+  SxProps,
+  InputBaseProps,
+} from '@mui/material'
 
 interface ITextFieldProps {
-  value: any
+  value: string | number | null
   onChange: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void
@@ -15,9 +19,9 @@ interface ITextFieldProps {
   type?: string
   placeholder?: string
   inputProps?: { 'data-testid': string }
-  sx?: any
-  onBlur?: any
-  ref?: any
+  sx?: SxProps
+  onBlur?: InputBaseProps['onBlur']
+  ref?: null | RefObject<HTMLInputElement>
 }
 
 const TextField: FC<ITextFieldProps> = (props) => {

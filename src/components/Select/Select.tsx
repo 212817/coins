@@ -1,20 +1,26 @@
 import { FC } from 'react'
-import { MenuItem, Select as MUISelect, SelectChangeEvent } from '@mui/material'
+import {
+  MenuItem,
+  Select as MUISelect,
+  SelectChangeEvent,
+  SxProps,
+  Theme,
+} from '@mui/material'
 
 interface Iitem {
-  id: number | string;
-  item: string;
+  id: number | string
+  item: string
 }
 interface Ioptions extends Array<Iitem> {}
 
 interface ISelectProps {
-  id: string;
-  value: string;
-  onChange: (event: SelectChangeEvent<string>) => void;
-  options: Ioptions;
-  testid?: string;
-  inputProps?: { 'data-testid': string };
-  sx?: any;
+  id: string
+  value: string
+  onChange: (event: SelectChangeEvent<string>) => void
+  options: Ioptions
+  testid?: string
+  inputProps?: { 'data-testid': string }
+  sx?: SxProps<Theme>
 }
 
 const Select: FC<ISelectProps> = ({ options, testid, ...props }) => {

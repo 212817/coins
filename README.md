@@ -1,44 +1,95 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/react?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/typescript?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/redux?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/redux-thunk?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/axios?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/react-router-dom?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/react-hook-form?style=for-the-badge)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/212817/coins/@mui/material?style=for-the-badge)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
 
-## Available Scripts
-
-In the project directory, you can run:
+- useDebounce
+- interceptors
+- navigate
 
 ### `npm start`
+
+You must clone a repository to start the server `npm run dev`
+
+https://github.com/212817/coins-server
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+├── .env
+├── .eslintignore
+├── .eslintrc
+├── .gitignore
+├── .prettierrc
+├── jest.config.ts
+├── package-lock.json
+├── package.json
+├── README.md
+├── src
+│  ├── API
+│  │  ├── api.ts
+│  │  └── apiDB.ts
+│  ├── App.css
+│  ├── App.tsx
+│  ├── components
+│  │  ├── FilterBar
+│  │  │  ├── FilterBar.test.tsx
+│  │  │  ├── FilterBar.tsx
+│  │  │  └── index.ts
+│  │  ├── HOC
+│  │  │  └── withNavigate.tsx
+│  │  ├── Layout.tsx
+│  │  ├── Link
+│  │  │  └── Link.tsx
+│  │  ├── PrivatRouter
+│  │  │  └── PrivatRouter.tsx
+│  │  ├── Select
+│  │  │  └── Select.tsx
+│  │  ├── TableCoins
+│  │  │  ├── index.ts
+│  │  │  ├── TableCoins.test.tsx
+│  │  │  └── TableCoins.tsx
+│  │  └── TextField
+│  │    └── TextField.tsx
+│  ├── hooks
+│  │  └── useDebounce.ts
+│  ├── index.css
+│  ├── index.tsx
+│  ├── pages
+│  │  ├── ForgotPassword.tsx
+│  │  ├── Home.tsx
+│  │  ├── Login.tsx
+│  │  ├── NotFound.tsx
+│  │  ├── Registration.tsx
+│  │  └── User.tsx
+│  ├── setupTests.ts
+│  ├── store
+│  │  ├── actions
+│  │  │  ├── actionTypes.actions.ts
+│  │  │  ├── coinsActions.ts
+│  │  │  └── userActions.ts
+│  │  ├── reducers
+│  │  │  ├── CoinsReducer.ts
+│  │  │  └── UserReducer.ts
+│  │  ├── services
+│  │  │  ├── authService.ts
+│  │  │  └── fetchUsers.ts
+│  │  └── store.ts
+│  ├── test
+│  │  └── test-utils.tsx
+│  └── types
+│    ├── ICoin.ts
+│    └── IUser.ts
+└── tsconfig.json
+```
